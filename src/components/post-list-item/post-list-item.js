@@ -17,6 +17,8 @@ const PostListItem = () => {
         </button>
         <i className="fa fa-heart"></i>
       </div>
+
+      <span className="app-list-date">{new Date().toLocaleDateString()}</span>
     </li>
   )
 }

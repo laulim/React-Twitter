@@ -1,5 +1,17 @@
 .app-list-item {
   font-size: 1.25rem;
+  position: relative; /*for date*/
+  padding-bottom: 3px;  /*for date*/
+  margin-bottom: 5px;  /*for date*/
+}
+
+/*for date*/
+.app-list-item .app-list-date {
+  position: absolute;
+  font-size: 10px;
+  bottom: 0;
+  left: 0;
+  color: #4c4d50;
 }
 
 .app-list-item button {
