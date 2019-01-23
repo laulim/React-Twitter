@@ -11,7 +11,13 @@ import './app.css';
 const App = () => {
 
   let date = new Date();
-  const data = [ 1,
+  const data = [ 
+      1,
+      {label: 'Going to learn', date: date},
+      {label: 'Going to learn R', date: '', important: true, id: 'jhjhf' },
+      {label: '', date: date, important: true, id: 'jhjhf' },
+      {label: 'Going to learn React!', important: true, id: 'weffew' },
+
       {label: 'Going to learn React!', date: date, important: true, id: 'weqw' },
       {label: 'That is so intresting', date: date, important: false, id: 'dggdf' },
       {label: 'I need a break...', date: date, important: false, id: 'sdcsd' }

@@ -6,7 +6,7 @@ import './post-list.css'
 const PostList = ({posts}) => {
 
   const filterPosts = posts.filter((item) => {
-    if (item === Object(item)) {
+    if (item === Object(item) && item.id && item.label && item.date) {
       return true;
     }
   })
