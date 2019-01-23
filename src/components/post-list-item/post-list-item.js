@@ -7,7 +7,7 @@ export default class PostListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      important: false,
+      important: this.props.important,
       like: false
     };
   }
@@ -24,7 +24,7 @@ export default class PostListItem extends Component {
   }
 
   render() {
-    const {label, date} = this.props;
+    const {label, date, onDelete} = this.props;
 
     const {important, like} = this.state;
 
@@ -65,7 +65,10 @@ export default class PostListItem extends Component {
 
             <i className="fa fa-star"></i>
           </button>
-          <button type="button" className="btn-trash btn-sm">
+          <button 
+            type="button" 
+            className="btn-trash btn-sm"
+            onClick={onDelete}>
             <i className="fa fa-trash-o"></i>
           </button>
           <i className="fa fa-heart"></i>
