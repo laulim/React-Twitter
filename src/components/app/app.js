@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import idGenerator from 'react-id-generator';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
@@ -6,21 +7,35 @@ import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
 
-import './app.css';
+import styled from 'styled-components';
 
-let date = new Date();
+
+const AppBlock = styled.div`
+  margin: 0 auto;
+  max-width: 800px;
+`
+
+const SearchPanelBlock = styled.div`
+  display: flex;
+  margin: 1rem 0;
+  .search-input {
+    width: auto;
+    flex-grow: 1;
+    margin-right: 3px;
+  }
+`
+
 export default class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       data: [ 
-        {label: 'Going to learn React!', date: date, important: true, id: '1' },
-        {label: 'That is so intresting', date: date, important: false, id: '2' },
-        {label: 'I need a break...', date: date, important: false, id: '3' }
+        {label: 'Going to learn React!', date: new Date(2018, 11, 31, 0, 0), important: true, id: idGenerator() },
+        {label: 'That is so intresting', date: new Date(2019, 0, 19, 20, 45), important: false, id: idGenerator() },
+        {label: 'I need a break...', date: new Date(2019, 0, 21, 10, 30), important: false, id: idGenerator() }
       ]
-    };
-    this.maxId = 4;
+    }
   }
 
   deleteItem = (id) => {
@@ -43,7 +58,7 @@ export default class App extends Component {
     const newItem = {
       label: body,
       important: false,
-      id: this.maxId++,
+      id: idGenerator(),
       date: new Date()
     }
 
@@ -58,12 +73,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <AppBlock>
         <AppHeader/>
-        <div className="search-panek d-flex">
+        <SearchPanelBlock>
           <SearchPanel/>
           <PostStatusFilter/>
-        </div>
+        </SearchPanelBlock>
         <PostList 
           posts={this.state.data}
           onDelete={this.deleteItem}
@@ -71,7 +86,7 @@ export default class App extends Component {
         <PostAddForm
           onAdd={this.addItem}
         />
-      </div>
+      </AppBlock>
     )
   }
 }

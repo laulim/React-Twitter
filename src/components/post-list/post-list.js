@@ -1,7 +1,15 @@
 import React from 'react';
 import PostListItem from '../post-list-item';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import styled from 'styled-components';
 
-import './post-list.css'
+const AppList = styled.ul`
+  margin-top: 50px;
+  .list-group-item {
+    padding: 15px 35px 15px 35px;
+    margin-top: 10px;
+  }
+`
 
 const PostList = ({posts, onDelete}) => {
 
@@ -14,19 +22,19 @@ const PostList = ({posts, onDelete}) => {
   const elements = filterPosts.map((item) => {
     const {id, ...itemProps} = item;
     return (
-      <li key={id} className="list-group-item">
+      <ListGroupItem key={id}>
         <PostListItem 
           {...itemProps}
           onDelete={() => onDelete(id)}
           />
-      </li>
+      </ListGroupItem>
     )
   })
 
   return (
-    <ul className="app-list list-group">
+    <AppList className="list-group">
       {elements}
-    </ul>
+    </AppList>
   )
 }
 
