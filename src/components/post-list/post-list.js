@@ -1,6 +1,6 @@
 import React from 'react';
 import PostListItem from '../post-list-item';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroupItem } from 'reactstrap';
 import styled from 'styled-components';
 
 const AppList = styled.ul`
@@ -11,7 +11,7 @@ const AppList = styled.ul`
   }
 `
 
-const PostList = ({posts, onDelete}) => {
+const PostList = ({posts, onDelete, onToggleLike, onToggleImportant}) => {
 
   const filterPosts = posts.filter((item) => {
     if (item === Object(item) && item.id && item.label && item.date) {
@@ -26,6 +26,8 @@ const PostList = ({posts, onDelete}) => {
         <PostListItem 
           {...itemProps}
           onDelete={() => onDelete(id)}
+          onToggleImportant={() => onToggleImportant('important', id)}
+          onToggleLike={() => onToggleLike('like', id)}
           />
       </ListGroupItem>
     )

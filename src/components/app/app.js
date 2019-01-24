@@ -31,10 +31,13 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [ 
-        {label: 'Going to learn React!', date: new Date(2018, 11, 31, 0, 0), important: true, id: idGenerator() },
-        {label: 'That is so intresting', date: new Date(2019, 0, 19, 20, 45), important: false, id: idGenerator() },
-        {label: 'I need a break...', date: new Date(2019, 0, 21, 10, 30), important: false, id: idGenerator() }
-      ]
+        {label: 'Going to learn React!', date: new Date(2018, 11, 31, 0, 0), important: true, like: false, id: idGenerator() },
+        {label: 'That is so intresting', date: new Date(2019, 0, 19, 20, 45), important: false, like: true, id: idGenerator() },
+        {label: 'I need a break...', date: new Date(2019, 0, 21, 10, 30), important: false, like: false, id: idGenerator() }
+      ],
+
+      term: '',
+      filter: 'all'
     }
   }
 
@@ -70,18 +73,76 @@ export default class App extends Component {
     })
   }
 
+  
+  inverseStatus = (dataItem, id) => {
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id == id);
+      const old = data[index];
+      const newItem = {...old, [dataItem]: !old[dataItem]};
+
+      const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+      return {
+        data: newArr
+      }
+    })
+  }
+
+
+  searchPost = (items, term) => {
+    if (term.trim().length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.label.toLowerCase().indexOf(term) > -1;
+    })
+  }
+
+  onUpdateSearch = (term) => {
+    this.setState({term})
+  }
+
+  filterPosts = (items, filter) => {
+    if (filter == 'like') {
+      return items.filter(item => item.like);
+    } else {
+      return items
+    }
+  }
+
+  onFilterSelect = (filter) => {
+    this.setState({filter});
+  }
+
 
   render() {
+    const {data, term, filter} = this.state;
+
+    const liked = data.filter(item => item.like).length;
+    const allPosts = data.length;
+    const visiblePosts = this.filterPosts(this.searchPost(data, term), filter);
+
     return (
       <AppBlock>
-        <AppHeader/>
+        <AppHeader
+          liked={liked}
+          allPosts={allPosts}
+        />
         <SearchPanelBlock>
-          <SearchPanel/>
-          <PostStatusFilter/>
+          <SearchPanel
+            onUpdateSearch={this.onUpdateSearch}
+          />
+          <PostStatusFilter
+            filter={filter}
+            onFilterSelect={this.onFilterSelect}
+          />
         </SearchPanelBlock>
         <PostList 
-          posts={this.state.data}
+          posts={visiblePosts}
           onDelete={this.deleteItem}
+          onToggleImportant={this.inverseStatus}
+          onToggleLike={this.inverseStatus}
           />
         <PostAddForm
           onAdd={this.addItem}

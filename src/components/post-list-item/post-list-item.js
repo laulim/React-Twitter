@@ -6,27 +6,10 @@ export default class PostListItem extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      important: this.props.important,
-      like: false
-    };
-  }
-
-  onImportant = () => {
-    this.setState(({important}) => ({
-      important: !important
-    }))
-  }
-  onLike = () => {
-    this.setState(({like}) => ({
-      like: !like
-    }))
   }
 
   render() {
-    const {label, date, onDelete} = this.props;
-
-    const {important, like} = this.state;
+    const {label, date, important, like, onDelete, onToggleImportant, onToggleLike} = this.props;
 
     const dateOptions = {
       weekday: 'short', 
@@ -52,7 +35,7 @@ export default class PostListItem extends Component {
       <div className={classNames}>
         <span 
           className="app-list-item-label"
-          onClick={this.onLike}>
+          onClick={onToggleLike}>
           
           {label}
         </span>
@@ -61,7 +44,7 @@ export default class PostListItem extends Component {
           <button 
             type="button" 
             className="btn-star btn-sm"
-            onClick={this.onImportant}>
+            onClick={onToggleImportant}>
 
             <i className="fa fa-star"></i>
           </button>
