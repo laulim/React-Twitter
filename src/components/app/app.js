@@ -7,6 +7,8 @@ import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
 
+import ModalWindow from '../modal-window';
+
 import styled from 'styled-components';
 
 
@@ -24,7 +26,6 @@ const SearchPanelBlock = styled.div`
     margin-right: 3px;
   }
 `
-
 export default class App extends Component {
 
   constructor(props) {
@@ -37,7 +38,9 @@ export default class App extends Component {
       ],
 
       term: '',
-      filter: 'all'
+      filter: 'all',
+      isOpenModal: false,
+      modalContent: null
     }
   }
 
@@ -73,13 +76,26 @@ export default class App extends Component {
     })
   }
 
+  openModal = (id) => {
+    console.log(id);
+    this.setState({
+      isOpenModal: true,
+      modalContent: `${id}`
+    })
+    console.log(this.state.isOpenModal);
+  }
+
+  updateItem = (id) => {
+    this.openModal(id)
+    console.log(id);
+    console.log(this.state.isOpenModal);
+  }
   
   inverseStatus = (dataItem, id) => {
     this.setState(({data}) => {
       const index = data.findIndex(elem => elem.id == id);
       const old = data[index];
       const newItem = {...old, [dataItem]: !old[dataItem]};
-
       const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
 
       return {
@@ -87,7 +103,6 @@ export default class App extends Component {
       }
     })
   }
-
 
   searchPost = (items, term) => {
     if (term.trim().length === 0) {
@@ -115,10 +130,8 @@ export default class App extends Component {
     this.setState({filter});
   }
 
-
   render() {
     const {data, term, filter} = this.state;
-
     const liked = data.filter(item => item.like).length;
     const allPosts = data.length;
     const visiblePosts = this.filterPosts(this.searchPost(data, term), filter);
@@ -141,11 +154,16 @@ export default class App extends Component {
         <PostList 
           posts={visiblePosts}
           onDelete={this.deleteItem}
+          openModal={this.openModal}
           onToggleImportant={this.inverseStatus}
           onToggleLike={this.inverseStatus}
           />
         <PostAddForm
           onAdd={this.addItem}
+        />
+        <ModalWindow
+          isOpenModal={this.state.isOpenModal}
+          modalContent={this.state.modalContent}
         />
       </AppBlock>
     )

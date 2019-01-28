@@ -11,7 +11,7 @@ const AppList = styled.ul`
   }
 `
 
-const PostList = ({posts, onDelete, onToggleLike, onToggleImportant}) => {
+const PostList = ({posts, onDelete, openModal, onToggleLike, onToggleImportant}) => {
 
   const filterPosts = posts.filter((item) => {
     if (item === Object(item) && item.id && item.label && item.date) {
@@ -26,6 +26,7 @@ const PostList = ({posts, onDelete, onToggleLike, onToggleImportant}) => {
         <PostListItem 
           {...itemProps}
           onDelete={() => onDelete(id)}
+          openModal={() => openModal(id)}
           onToggleImportant={() => onToggleImportant('important', id)}
           onToggleLike={() => onToggleLike('like', id)}
           />

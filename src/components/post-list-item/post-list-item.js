@@ -9,7 +9,7 @@ export default class PostListItem extends Component {
   }
 
   render() {
-    const {label, date, important, like, onDelete, onToggleImportant, onToggleLike} = this.props;
+    const {label, date, important, like, onDelete, onToggleImportant, onToggleLike, openModal} = this.props;
 
     const dateOptions = {
       weekday: 'short', 
@@ -53,6 +53,12 @@ export default class PostListItem extends Component {
             className="btn-trash btn-sm"
             onClick={onDelete}>
             <i className="fa fa-trash-o"></i>
+          </button>
+          <button 
+            type="button" 
+            className="btn-sm"
+            onClick={openModal}>
+            <i className="fa fa-pencil"></i>
           </button>
           <i className="fa fa-heart"></i>
         </div>
