@@ -4,17 +4,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 export default class ModalWindow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
-  closeModal = () => {
+  // closeModal = () => {
 
-  }
+  // }
 
   render() {
-    const status = this.props.isOpenModal;
-    if (status == false) return null;
+    
+    if (!this.props.show) return null;
 
     return (
       <div>
@@ -32,3 +32,9 @@ export default class ModalWindow extends React.Component {
     );
   }
 }
+
+ModalWindow.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  show: PropTypes.bool,
+  children: PropTypes.node
+};
