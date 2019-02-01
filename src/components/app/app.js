@@ -94,7 +94,7 @@ export default class App extends Component {
   
   inverseStatus = (dataItem, id) => {
     this.setState(({data}) => {
-      const index = data.findIndex(elem => elem.id == id);
+      const index = data.findIndex(elem => elem.id === id);
       const old = data[index];
       const newItem = {...old, [dataItem]: !old[dataItem]};
       const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
@@ -120,7 +120,7 @@ export default class App extends Component {
   }
 
   filterPosts = (items, filter) => {
-    if (filter == 'like') {
+    if (filter === 'like') {
       return items.filter(item => item.like);
     } else {
       return items

@@ -15,7 +15,9 @@ const PostList = ({posts, onDelete, onUpdate, openModal, onToggleLike, onToggleI
 
   const filterPosts = posts.filter((item) => {
     if (item === Object(item) && item.id && item.label && item.date) {
-      return true;
+      return item;
+    } else {
+      return false;
     }
   })
 
@@ -26,7 +28,7 @@ const PostList = ({posts, onDelete, onUpdate, openModal, onToggleLike, onToggleI
         <PostListItem 
           {...itemProps}
           id={id}
-          onDelete={() => onDelete(id)}
+          onDelete={onDelete}
           onUpdate={onUpdate}
           openModal={() => openModal(id)}
           onToggleImportant={() => onToggleImportant('important', id)}

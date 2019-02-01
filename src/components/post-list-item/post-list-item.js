@@ -22,7 +22,7 @@ export default class PostListItem extends Component {
   openModal = (butn) => {
     let header, content;
 
-    if (butn == 'update') {
+    if (butn === 'update') {
       header = 'Редактировать запись';
       content = (
         <Form onSubmit={this.onSubmit}>
@@ -50,7 +50,7 @@ export default class PostListItem extends Component {
       );
     }
 
-    if (butn == 'delete') {
+    if (butn === 'delete') {
       header = 'Удалить запись';
       content = (
         <>
@@ -114,7 +114,7 @@ export default class PostListItem extends Component {
   }
 
   render() {
-    const {label, date, important, like, onDelete, onToggleImportant, onToggleLike} = this.props;
+    const {label, date, important, like, onToggleImportant, onToggleLike} = this.props;
 
     const dateOptions = {
       weekday: 'short', 
