@@ -6,9 +6,6 @@ import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
-
-import ModalWindow from '../modal-window';
-
 import styled from 'styled-components';
 
 
@@ -76,20 +73,25 @@ export default class App extends Component {
     })
   }
 
-  openModal = (id) => {
-    console.log(id);
-    this.setState({
-      isOpenModal: true,
-      modalContent: `${id}`
-    })
-    console.log(this.state.isOpenModal);
-  }
+  updateItem = (id, newlabel) => {
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id === id);
 
-  updateItem = (id) => {
-    this.openModal(id)
-    console.log(id);
-    console.log(this.state.isOpenModal);
+      const updated = {
+        label: newlabel,
+        important: data[index].important,
+        id: data[index].id,
+        date: data[index].date
+      }
+      const before = data.slice(0, index);
+      const after = data.slice(index + 1);
+      const newArr = [...before, updated, ...after];
+      return {
+        data: newArr
+      }
+    })
   }
+  
   
   inverseStatus = (dataItem, id) => {
     this.setState(({data}) => {
@@ -154,16 +156,13 @@ export default class App extends Component {
         <PostList 
           posts={visiblePosts}
           onDelete={this.deleteItem}
+          onUpdate={this.updateItem}
           openModal={this.openModal}
           onToggleImportant={this.inverseStatus}
           onToggleLike={this.inverseStatus}
           />
         <PostAddForm
           onAdd={this.addItem}
-        />
-        <ModalWindow
-          isOpenModal={this.state.isOpenModal}
-          modalContent={this.state.modalContent}
         />
       </AppBlock>
     )

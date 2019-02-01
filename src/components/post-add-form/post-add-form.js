@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
-import { Button, Input, Alert } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
+import AlertError from '../alert-error';
 import styled from 'styled-components';
 
 const BottomPanel = styled.form`
@@ -17,20 +18,6 @@ const BottomPanel = styled.form`
     left: 0;
   }
 `
-class AlertError extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Alert color="danger" isOpen={this.props.visible}>
-        Сообщение не должно быть пустым
-      </Alert>
-    );
-  }
-}
-
 export default class PostAddForm extends Component {
   constructor(props) {
     super(props);

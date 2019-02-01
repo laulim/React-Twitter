@@ -1,40 +1,25 @@
 
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import PropTypes from 'prop-types';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 export default class ModalWindow extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  // closeModal = () => {
-
-  // }
+  constructor(props) {
+    super(props);
+  }
 
   render() {
-    
-    if (!this.props.show) return null;
+    const {isOpen, header, content, actionOnOk} = this.props.modalOptions;
+    if (!isOpen) return null;
 
     return (
       <div>
-        <Modal isOpen={status} toggle={this.toggle(status)} className={this.props.className}>
-          {/* <ModalHeader toggle={this.toggle(status)}></ModalHeader> */}
+        <Modal isOpen={isOpen}>
+          <ModalHeader>{header}</ModalHeader>
           <ModalBody>
-            {this.props.modalContent}
+            {content}
           </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle()}>Do Something</Button>
-            <Button color="secondary" onClick={this.toggle(status)}>Cancel</Button>
-          </ModalFooter>
         </Modal>
       </div>
     );
   }
 }
-
-ModalWindow.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  show: PropTypes.bool,
-  children: PropTypes.node
-};
