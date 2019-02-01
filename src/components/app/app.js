@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import idGenerator from 'react-id-generator';
-
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
 import styled from 'styled-components';
+
+import randomId from '../random-id';
 
 
 const AppBlock = styled.div`
@@ -29,9 +29,9 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [ 
-        {label: 'Going to learn React!', date: new Date(2018, 11, 31, 0, 0), important: true, like: false, id: idGenerator() },
-        {label: 'That is so intresting', date: new Date(2019, 0, 19, 20, 45), important: false, like: true, id: idGenerator() },
-        {label: 'I need a break...', date: new Date(2019, 0, 21, 10, 30), important: false, like: false, id: idGenerator() }
+        {label: 'Going to learn React!', date: new Date(2018, 11, 31, 0, 0), important: true, like: false, id: randomId() },
+        {label: 'That is so intresting', date: new Date(2019, 0, 19, 20, 45), important: false, like: true, id: randomId() },
+        {label: 'I need a break...', date: new Date(2019, 0, 21, 10, 30), important: false, like: false, id: randomId() }
       ],
 
       term: '',
@@ -49,7 +49,6 @@ export default class App extends Component {
       const after = data.slice(index + 1);
 
       const newArr = [...before, ...after];
-      // const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
 
       return {
         data: newArr
@@ -61,7 +60,7 @@ export default class App extends Component {
     const newItem = {
       label: body,
       important: false,
-      id: idGenerator(),
+      id: randomId(),
       date: new Date()
     }
 
