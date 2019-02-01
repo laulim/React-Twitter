@@ -18,10 +18,15 @@ const AppHeader = ({liked, allPosts}) => {
   return (
     <Header>
       <h1>Mila Kovtun</h1>
-      <h2>{allPosts} записей, из них понравилось {liked}</h2>
+      <h2>{allPosts} {endOfNum(allPosts, ['запись', 'записи', 'записей'])}, из них понравилось {liked}</h2>
     </Header>
   )
 }
+
+let endOfNum = (num, titles) => {
+  const cases = [2, 0, 1 , 1, 1, 2];
+  return titles[ (num%100>4 && num%100<20)? 2 : cases[(num%10<5)?num%10:5]];
+};
 
 
 export default AppHeader
